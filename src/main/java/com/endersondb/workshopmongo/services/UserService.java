@@ -1,12 +1,14 @@
 package com.endersondb.workshopmongo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.endersondb.workshopmongo.domain.User;
 import com.endersondb.workshopmongo.repository.UserRepository;
+import com.endersondb.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -16,5 +18,14 @@ public class UserService {
 	
 	public List<User> findAll(){
 		return rep.findAll();
+	}
+	
+	public User findById(String id) {
+		Optional<User> user = rep.findById(id);
+		if (user.isPresent()) {
+			return user.get();
+		} else {
+			throw new ObjectNotFoundException("Usuário não encontrado.");
+		}
 	}
 }

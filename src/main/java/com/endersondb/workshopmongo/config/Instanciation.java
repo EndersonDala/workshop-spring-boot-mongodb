@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.endersondb.workshopmongo.domain.Post;
 import com.endersondb.workshopmongo.domain.User;
+import com.endersondb.workshopmongo.dto.AuthorDTO;
 import com.endersondb.workshopmongo.repository.PostRepository;
 import com.endersondb.workshopmongo.repository.UserRepository;
 
@@ -24,8 +25,8 @@ public class Instanciation implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		rep.deleteAll();
 		prep.deleteAll();
+		rep.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
@@ -36,8 +37,8 @@ public class Instanciation implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
-		Post post1 = new Post(null, sdf.parse("09/09/2025"), "Partiu Viagem", "Vou viajar para São Paulo, abraços !", maria);
-		Post post2 = new Post(null, sdf.parse("10/09/2025"), "Bom dia", "Acordei feliz hoje", maria);
+		Post post1 = new Post(null, sdf.parse("09/09/2025"), "Partiu Viagem", "Vou viajar para São Paulo, abraços !", new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("10/09/2025"), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
 		
 		prep.saveAll(Arrays.asList(post1, post2));
 	}

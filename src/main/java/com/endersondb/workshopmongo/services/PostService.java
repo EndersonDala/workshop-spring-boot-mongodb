@@ -1,5 +1,6 @@
 package com.endersondb.workshopmongo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class PostService {
 		newObj.setDate(obj.getDate());
 		newObj.setBody(obj.getBody());
 		newObj.setAuthor(obj.getAuthor());
+	}
+	
+	public List<Post> findByTitle(String text){
+		return rep.findByTitleContainingIgnoreCase(text);
 	}
 
 }

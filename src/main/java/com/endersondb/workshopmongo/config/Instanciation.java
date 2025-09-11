@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.endersondb.workshopmongo.domain.Post;
 import com.endersondb.workshopmongo.domain.User;
 import com.endersondb.workshopmongo.dto.AuthorDTO;
+import com.endersondb.workshopmongo.dto.CommentsDTO;
 import com.endersondb.workshopmongo.repository.PostRepository;
 import com.endersondb.workshopmongo.repository.UserRepository;
 
@@ -39,6 +40,13 @@ public class Instanciation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("09/09/2025"), "Partiu Viagem", "Vou viajar para São Paulo, abraços !", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("10/09/2025"), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
+		
+		CommentsDTO c1 = new CommentsDTO("Boa viagem mano!", sdf.parse("09/09/2025"), new AuthorDTO(alex));
+		CommentsDTO c2 = new CommentsDTO("Aproveite!", sdf.parse("10/09/2025"), new AuthorDTO(bob));
+		CommentsDTO c3 = new CommentsDTO("Tenha um ótimo dia!", sdf.parse("10/09/2025"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().add(c3);
 		
 		prep.saveAll(Arrays.asList(post1, post2));
 		
